@@ -1,0 +1,50 @@
+form-valid.js
+
+
+<script src="form-valid.js"></script>
+
+
+Initiate form validator
+
+<script>
+ValidateForm.init('myForm');
+</script>
+
+Add a <span> with a class above the input
+
+in the input add an attribute "data-vf"
+
+---- this contains a comma seperated list :
+
+------------first add type of data to check for
+
+------------ email = check valid email
+-------------email-confirm = check confirm email is equal to original email
+-------------password = password
+-------------password-confirm = check passwords are equal
+-------------number = check for a valid number
+-------------date = check for a valid date
+-------------url = check for a valid url
+
+set custom error and success messages
+
+ValidateForm.setMsg('emailsMatch', 'Great match');
+
+in the form of input-check , 'MESSAGE'
+
+valid fields :
+
+--------emailsMatch = 'When the two emails match'
+--------emailsNoMatch = 'when the two emails don't match'
+--------inValidEmail = 'When the email is invalid'
+--------validEmail = 'emails match'
+
+
+note :
+  ensure submit doesn't have an id of submit will prevent form from submitting when valid
+  
+--------at least 8 characters
+--------at least 1 number
+--------at least 1 lowercase character (a-z)
+--------least 1 uppercase character (A-Z)
+

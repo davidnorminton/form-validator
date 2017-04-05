@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Form Validator</title>
+        <meta type="author" content="David Norminton">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="alert"></div>
+        <form id="form-1" name="myForm" action="" method="POST">
+            <div>
+                <label>Email</label>
+                <span class="message"></span>
+                <input id="email" type="email" />
+            </div>
+            <div>
+                <label>Confirm Email</label> 
+                <span class="message"></span>
+                <input data-vf="confirm" id="email-check" type="email" />
+            </div>
+            <div>
+                <label>Date</label>
+                <span class="message"></span>
+                <input type="date" id="check-date" />
+            </div>
+            <div>
+                <label>Number</label>
+                <span class="message"></span>
+                <input type="number" id="check-number" />
+            </div>
+            <div>
+                <label>Url</label>
+                <span class="message"></span>
+                <input type="url" id="check-url" />
+            </div>
+            <span class="cross">&#10060</span>
+            <span class="tick">&#10004</span>
+            <input type="submit" id="form-submit">
+        </form>
+<script src="form-valid.js"></script>
+<script>
+
+ValidateForm.init('myForm');
+ValidateForm.globalMsg('alert')
+</script>      
+    </body>
+</html>
