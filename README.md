@@ -73,7 +73,7 @@ The format for this is ValidateForm.setMsg('OUTPUT_IDENTIFIER', 'YOUR_MESSAGE')<
     </tr>
     <tr>
         <td>isNotNumber</td>
-        <td><Error - not a real number</td>
+        <td>Error - not a real number</td>
     </tr>
     <tr>
         <td>isNotDate</td>
