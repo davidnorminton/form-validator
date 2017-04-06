@@ -37,7 +37,27 @@ Please note the argument to ValidateForm.init should be the 'id' used by the for
 <br />
 And that's it, form-valid will now be validating your form and sending default messages.
 </p>
+<h3>Input that confirms anothers input</h3>
+<p>
+To add a confirm type input such as for passords or email addresses use the custom
+data attribute 'data-vf' with a value of 'confirm'. This tells the script that
+this is a confirm type input field, and it will use that information to find
+an input with the same type and ensure that the values of the two match.<br />
+Your inputs would look something lke below..
+</p>
+<code>
+// first password
+<input type="password" id="password" />
+// confirm match
+<input type="password" id="confirm-password" data-vf="confirm" />
+</code>
+<h3>Ignore an input for validation</h3>
+<p>
+If you have an input which you don't want to be checked then we again use the
+data attribute 'data-vf' but this time with a value of 'ignore' which tells
+the program to just ignore what happens with this input field.
 
+</p>
 <h2>Options : </h2>
 <h3>Custom error / success messages</h3>
 <p>
@@ -193,3 +213,4 @@ your code isn't working, and the handy 'settings' argument will return  a JSON
 object of all the settings in the script and their values. Note these are run
 singular so either use "ValidateForm.debug();" or "ValidateForm.debug('settings');";
 </p>
+<h3>Ignore an input for validation</h3>
