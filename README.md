@@ -74,7 +74,7 @@ The format for this is ValidateForm.setMsg('OUTPUT_IDENTIFIER', 'YOUR_MESSAGE')<
     </tr>
     <tr>
         <td>isNotNumber</td>
-        <td><Error - not a real number/td>
+        <td><Error - not a real number</td>
     </tr>
     <tr>
         <td>isNotDate</td>
@@ -171,7 +171,7 @@ simply add the line below.
 <code>
 ValidateForm.tickCross('message');
 </code>
-<h3>How the input is validated<h3>
+<h3>How the input is validated</h3>
 <p>
 A quick note on what the form validator deems to be valid input.<br />
 Emails are of any type of valid format email, numbers are any number ie not a-z or symbol,
