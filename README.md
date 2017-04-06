@@ -46,8 +46,8 @@ an input with the same type and ensure that the values of the two match.<br />
 Your inputs would look something lke below..
 </p>
 <code>
-<input type="password" id="password" />
-<input type="password" id="confirm-password" data-vf="confirm" />
+&lt;input type="password" id="password" /&gt;
+&lt;input type="password" id="confirm-password" data-vf="confirm" /&gt;
 </code>
 <h3>Ignore an input for validation</h3>
 <p>
