@@ -211,4 +211,10 @@ your code isn't working, and the handy 'settings' argument will return  a JSON
 object of all the settings in the script and their values. Note these are run
 singular so either use "ValidateForm.debug();" or "ValidateForm.debug('settings');";
 </p>
-<h3>Ignore an input for validation</h3>
+<h3>Style feedback</h3>
+<p>
+When the input is valid or not a class is added to the 'feedback' box with either a 
+class of error or one which is defined by you by using the line 
+<code>ValidateForm.changeErrorClass('YOUR_CLASS');</code>. To style a valid
+message box use the class name of 'success' and for an error message use 'error'.
+</p>
