@@ -1,4 +1,3 @@
-# form-validator
 <h1>form-valid.js</h1>
 
 <p>
