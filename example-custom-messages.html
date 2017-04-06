@@ -7,8 +7,8 @@
     </head>
     <body>
         <header>
-        <h1>Example : error / success messages above input </h1>
-        </header>    
+        <h1>Example : using custom error / success messages </h1>
+        </header>
         <div id="alert"></div>
         <form id="form-1" name="myForm" action="" method="POST">
             <div>
@@ -43,6 +43,16 @@
 <script>
 
 ValidateForm.init('myForm');
+ValidateForm.setMsg( 'emailsMatch' , 'Good Match');
+ValidateForm.setMsg( 'emailsNoMatch', 'oops not the same');
+ValidateForm.setMsg( 'inValidEmail',  'What kind of email is that?');
+ValidateForm.setMsg( 'validEmail', 'I like that email');
+ValidateForm.setMsg( 'isNumber' , 'yup thats a number');
+ValidateForm.setMsg( 'isNotNumber', 'try entering a number instead');
+ValidateForm.setMsg( 'isNotDate', 'What kind of date is that');
+ValidateForm.setMsg( 'isDate', 'I remember that day well');
+ValidateForm.setMsg( 'isUrl', 'Valid url');
+ValidateForm.setMsg( 'isNotUrl', 'not sure thats a website');
 //ValidateForm.msgOff();
 //ValidateForm.tickCross('message');
 //ValidateForm.globalMsg('alert');

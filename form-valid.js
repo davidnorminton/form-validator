@@ -10,7 +10,7 @@
 *@link         - http://davenorm.me
 *@demo link    - http://davenorm.me/demo/validateform
 *@wriiten      - 03/04/2017
-*@last update  - 04/04/2017
+*@last update  - 06/04/2017
 */
 
 ValidateForm = ( function () {
@@ -27,27 +27,31 @@ ValidateForm = ( function () {
         password : '', // first password input
         passwordConfirmId : '', // password confirm
         errorClass : 'error', // class name of message box
+        msg : true, // set display message or not bool
         globalMsg : '', // id of single use messge box
         highlight : true,
         tick : '&#10004', // html for tick
         cross : '&#10060', // html for cross
-        setTickClass : '', // use ticks and crosses bool
+        tickClass : '', // use ticks and crosses bool
         checkArray : [], // array of ids of found input fields in form
+        debug : false,
         // Default success and error messages
-        emailsMatch : 'Emails Match', // emails match msg
-        emailsNoMatch : 'Emails don\'t match', // emails don't match
-        inValidEmail : 'Not a Valid Email', // email not valid
-        validEmail : 'Valid Email', // valid email msg
-        isNumber : 'Number is Valid', // valid number
-        isNotNumber : 'Not a Number', // not a valid number
-        isNotDate : 'Not a Valid Date', // not a valid date
-        isDate : 'Valid Date', // valid date
-        isUrl : 'Valid Url', // valid url
-        isNotUrl : 'Not a Valid Url', // not a valid url
+        emailsMatch : 'Emails Match',
+        emailsNoMatch : 'Emails don\'t match',
+        inValidEmail : 'Not a Valid Email',
+        validEmail : 'Valid Email',
+        isNumber : 'Number is Valid',
+        isNotNumber : 'Not a Number',
+        isNotDate : 'Not a Valid Date',
+        isDate : 'Valid Date',
+        isUrl : 'Valid Url',
+        isNotUrl : 'Not a Valid Url',
         validPassword : 'Password is valid',
         inValidPassword : 'Invalid Password !',
-        passwordsMatch : 'Passwords Match',
-        passwordsNoMatch : 'Passwords Don\'t Match!',
+        passwordsMatch : 'Passwords Match', 
+        passwordsNoMatch : 'Passwords Don\'t Match!', 
+        textOk : 'Text ok',
+        textNoOk : 'Reuired text'
     };
     
     /*
@@ -57,15 +61,13 @@ ValidateForm = ( function () {
     var _getInputs = function () {
 
         var form = document.forms[settings.formName];
-        settings.formId = form.id;
-        // cehck if form exists
-        if ( !form ) {
-             console.log('free')
-            _htmlError( 'form' );
-            return false;
-        }
+        // check if form id is valid else output warning
+        if ( !form ){  _debug('WARNING ! Form requires id equal to init paramaer'); return false; }
+           
         var formLength = form.length, i = 0;
-
+        settings.formId = form.id;
+        
+        // find all inputs within the form
         for ( ; i < formLength; i +=1 ) {
             _getData(form[i]);
         }
@@ -83,14 +85,10 @@ ValidateForm = ( function () {
         var type = input.getAttribute('type');
         var id = input.getAttribute('id');
         // check if input fields
-        if (!id) {
-            _htmlError(type);
-            return false;
-        }        
+        if (!id) {  _debug('WARNING ! ' +type + ' Input Requires an id'), type = 'ignore'; }        
 
-        if ( data === 'confirm' ) {
-           type = type + '-' +'confirm';
-        }
+        if ( data === 'confirm' ) { type = type + '-' +'confirm'; }
+        else if ( data === 'ignore' ){ type = 'ignore'; }
         
         /*
         settings.checkArray is used to hold the id of each input -
@@ -136,11 +134,14 @@ ValidateForm = ( function () {
             case 'submit' :
                 document.getElementById(settings.formId).addEventListener('submit', _checkForm);
                 break;
-                
-            default :
-                //input has not type
-                    
 
+             case 'text' :
+                document.getElementById(id).addEventListener('input', _checkText);
+                break;
+                
+             case 'ignore' :
+                _removeIdFromArray(id);
+                break;   
         }
     };
 
@@ -310,13 +311,20 @@ ValidateForm = ( function () {
     }
     
     /*
-    @function _htmlError - report that all inputs require an id tag
+    @function _checkText - check a text input has at least some data
     */
-    var _htmlError = function ( type ) {
-
-        console.log( ( type === 'form')
-                       ? "Form requires an id of that matches argument to init!"
-                       : type + ' Requires an id' );      
+    var _checkText = function () {
+        ( this.value.length > 0)? _success(this.id, 'textOk')
+                                : _error(this.id, 'textNoOk');
+    }
+    /*
+    @function _debug - Any form errors repoerted in console to help dev
+    */
+    var _debug = function ( msg ) {
+    
+        if ( settings.debug ) {
+            console.log( msg );
+        }          
     }
     
     /*
@@ -331,27 +339,42 @@ ValidateForm = ( function () {
         if (settings.highlight) {
             document.getElementById(id).style.border = '2px solid green';
         }
-        // decide type of message to display 
-        // globalMsg is a single boxed area to dispaly all messages
-        if ( settings.globalMsg ) {
-            var msg = document.getElementById(settings.globalMsg);
-        // tickClass displays only a tick if correct or cross if invalid    
-        } else if ( settings.tickClass) { 
-             
-        } else {
-            // regular display text around input - message element must be
-            // directly above input due to use of previousElementSibling method
-            var msg = document.getElementById(id).previousElementSibling;
+        if (settings.msg) {
+            // decide type of message to display 
+            // globalMsg is a single boxed area to dispaly all messages
+            if ( settings.globalMsg ) {
+                var msg = document.getElementById(settings.globalMsg);
+            // tickClass displays only a tick if correct or cross if invalid    
+            }  else {
+                // regular display text around input - message element must be
+                // directly above input due to use of previousElementSibling method
+                var msg = document.getElementById(id).previousElementSibling;
+            }
+            if ( settings.tickClass ) {
+                output = settings.tick;
+            } else {
+                output = settings[output];        
+            }        
+            // add error class to box
+            msg.classList.remove('error');
+            // add success class box        
+            msg.classList.add('success');
+            // the text to show to user
+            msg.innerHTML = output;
+            // check if id is in the checkArray
         }
-        // add error class to box
-        msg.classList.remove('error');
-        // add success class box        
-        msg.classList.add('success');
-        // the text to show to user
-        msg.innerHTML = settings[output];
-        // check if id is in the checkArray
-        var haveId = settings.checkArray.includes(id)        
+        _removeIdFromArray(id);
+    };
+    
+    /*
+    @function _removeIdFromArray - remove id from settings.checkArray
+    */
+    var _removeIdFromArray = function (id) {
+     
+        var haveId = settings.checkArray.includes(id);
+             
         if ( haveId ) {
+
             var index = settings.checkArray.indexOf(id);
 
             if (index > -1) {
@@ -371,14 +394,33 @@ ValidateForm = ( function () {
         if (settings.highlight) {
             document.getElementById(id).style.border = '2px solid red';
         }
-        if ( settings.globalMsg ) {
-            var msg = document.getElementById(settings.globalMsg);
-        } else {
-            var msg = document.getElementById(id).previousElementSibling;
-        }    
-        msg.classList.remove('success');
-        msg.classList.add('error');
-        msg.innerHTML = settings[output];
+        if (settings.msg) {
+        
+            if ( settings.globalMsg ) {
+            
+                var msg = document.getElementById(settings.globalMsg);
+
+            } else {
+
+                var msg = document.getElementById(id).previousElementSibling;
+
+            }
+
+            if ( settings.tickClass ) {
+
+                output = settings.cross;
+
+            } else {
+
+                output = settings[output];        
+
+            }
+            // display output
+            msg.classList.remove('success');
+            msg.classList.add('error');
+            msg.innerHTML = output;            
+        }
+
 
         var haveId = settings.checkArray.includes(id);
         if ( ! haveId ) {
@@ -403,12 +445,21 @@ ValidateForm = ( function () {
 
         },
         /*
+        @function - changeErrorClass - change the class of the success / error
+             box used to supply feedback to user
+        @param string value - name of class to change to.     
+        */
+        changeErrorClass : function ( value ) {
+             settings.errorClass = value;
+        },
+        /*
         @function setMsg - dev can configure custom messages for each input type
             depending on whether the data supplied id valid or not
         @param string set - the settings.{property} to change.
         @param string msg - the message stored as value to property    
         */
         setMsg : function (set, msg) {
+            settings.msg = true;
             settings[set] = msg;
         },
         /*
@@ -416,6 +467,7 @@ ValidateForm = ( function () {
         @param string id - id of the message box to use
         */
         globalMsg : function ( id ) {
+            settings.msg = true;        
             settings.globalMsg = id;
         },
         /*
@@ -423,9 +475,32 @@ ValidateForm = ( function () {
         @param string setTickClass - class of element to display ticks and crosses with
         */
         tickCross : function ( setTickClass ) {
+            settings.msg = true;        
             settings.tickClass = setTickClass;
+        },
+        /*
+        @function msg - turn off messages and only use highlight input borders 
+        */
+        msgOff : function () {
+            settings.msg = false;
+        },
+        /*
+        @function highlightOff - turn off highlighting around input borders
+        */
+        highlightOff : function () {
+             setings.highlight = false;
+        },
+        /*
+        @function debugOff - switch off debugging errors to console
+        @param string value - if value is settings - console.log will show a JSON
+             string of all the settings
+        */
+        debug : function ( value ) {
+            settings.debug = true;
+            if ( value === 'settings' ) {
+                console.log(JSON.stringify(settings))
+            }
         }
-        
     };
 
 })();
