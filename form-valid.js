@@ -51,7 +51,9 @@ ValidateForm = ( function () {
         passwordsMatch : 'Passwords Match', 
         passwordsNoMatch : 'Passwords Don\'t Match!', 
         textOk : 'Text ok',
-        textNoOk : 'Reuired text'
+        textNoOk : 'Reuired text',
+        checked : 'Box Checked thank you',
+        unChecked : 'Please check box'
     };
     
     /*
@@ -138,7 +140,10 @@ ValidateForm = ( function () {
              case 'text' :
                 document.getElementById(id).addEventListener('input', _checkText);
                 break;
-                
+             
+             case 'checkbox' :
+                document.getElementById(id).addEventListener('change', _checkBox);                 
+                             
              case 'ignore' :
                 _removeIdFromArray(id);
                 break;   
@@ -281,6 +286,11 @@ ValidateForm = ( function () {
           
     };
 
+    /*
+    @function _checkIfPasswordConfirm - this function is used when on the off
+    chance the confirm password is entered first the feedback will still reflect
+    any changes when the origin password is entered.
+    */
     var _checkIfPasswordConfirm = function () {
     
         var confirmPass = document.getElementById(settings.passwordConfirmId).value;
@@ -317,6 +327,15 @@ ValidateForm = ( function () {
         ( this.value.length > 0)? _success(this.id, 'textOk')
                                 : _error(this.id, 'textNoOk');
     }
+    
+    var _checkBox = function () {
+        if ( this.checked) {
+           _success(this.id, 'checked')         
+        } else {
+           _error(this.id, 'unChecked');        
+        }
+    }
+    
     /*
     @function _debug - Any form errors repoerted in console to help dev
     */
