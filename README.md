@@ -46,9 +46,7 @@ an input with the same type and ensure that the values of the two match.<br />
 Your inputs would look something lke below..
 </p>
 <code>
-<!-- first password -->
 <input type="password" id="password" />
-<!-- confirm match -->
 <input type="password" id="confirm-password" data-vf="confirm" />
 </code>
 <h3>Ignore an input for validation</h3>
