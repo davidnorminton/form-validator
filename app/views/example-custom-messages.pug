@@ -33,10 +33,11 @@ html
                 input#check-url(type="url")
 
             input#form-submit(type="submit")
-script(src="/js/form-valid.js")
-script
 
-    ValidateForm.init('myForm')
+        script(src="/js/form-valid.js")
+        script.
+
+            ValidateForm.init('myForm')
                 .setMsg( 'emailsMatch' , 'Good Match')
                 .setMsg( 'emailsNoMatch', 'oops not the same')
                 .setMsg( 'inValidEmail',  'What kind of email is that?')
@@ -47,7 +48,7 @@ script
                 .setMsg( 'isDate', 'I remember that day well')
                 .setMsg( 'isUrl', 'Valid url')
                 .setMsg( 'isNotUrl', 'not sure thats a website')
-    //ValidateForm.msgOff();
-    //ValidateForm.tickCross('message');
-    //ValidateForm.globalMsg('alert');
-    //ValidateForm.debug('settings');
+            //ValidateForm.msgOff();
+            //ValidateForm.tickCross('message');
+            //ValidateForm.globalMsg('alert');
+            //ValidateForm.debug('settings');

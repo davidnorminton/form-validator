@@ -1,0 +1,26 @@
+<!DOCTYPE html>PASTE YOUR HTML CODE HERE
+
+<head>
+  <title>Form Validator</title>
+  <meta type="author" content="David Norminton">
+  <link rel="stylesheet" href="style.css">
+</head>
+<header>
+  <h1>Example : Highlight input borders only </h1>
+</header>
+<div id="alert"></div>
+<form id="form-1" name="myForm" action="" method="POST">
+  <div><label>Email</label><span class="message"></span><input id="email" type="email"></div>
+  <div><label>Confirm Email</label><span class="message"></span><input id="email-check" data-vf="confirm" type="email"></div>
+  <div><label>Date</label><span class="message"></span><input id="check-date" type="date"></div>
+  <div><label>Number</label><span class="message"></span><input id="check-number" type="number"></div>
+  <div><label>Url</label><span class="message"></span><input id="check-url" type="url"></div><input id="form-submit" type="submit">
+</form>
+<script src="form-valid.js"></script>
+<script>
+  ValidateForm.init('myForm');
+  ValidateForm.msgOff();
+  //ValidateForm.tickCross('message');
+  //ValidateForm.globalMsg('alert');
+  //ValidateForm.debug('settings');
+</script>

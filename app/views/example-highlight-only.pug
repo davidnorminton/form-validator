@@ -1,0 +1,38 @@
+doctype html
+| PASTE YOUR HTML CODE HERE
+head
+  title Form Validator
+  meta(type='author' content='David Norminton')
+  link(rel='stylesheet' href='style.css')
+header
+  h1 Example : Highlight input borders only 
+#alert
+form#form-1(name='myForm' action='' method='POST')
+  div
+    label Email
+    span.message
+    input#email(type='email')
+  div
+    label Confirm Email
+    span.message
+    input#email-check(data-vf='confirm' type='email')
+  div
+    label Date
+    span.message
+    input#check-date(type='date')
+  div
+    label Number
+    span.message
+    input#check-number(type='number')
+  div
+    label Url
+    span.message
+    input#check-url(type='url')
+  input#form-submit(type='submit')
+script(src='form-valid.js')
+script.
+  ValidateForm.init('myForm');
+  ValidateForm.msgOff();
+  //ValidateForm.tickCross('message');
+  //ValidateForm.globalMsg('alert');
+  //ValidateForm.debug('settings');
