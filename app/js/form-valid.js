@@ -186,7 +186,7 @@ const ValidateForm = (function() {
     */
     const _checkIfEmailConfirm = function() {
         const confirmEmail = document.getElementById(settings.emailConfirmId).value;
-
+        if(!confirmEmail || settings.email) return
         if (confirmEmail === settings.email) {
             _success(settings.emailConfirmId, 'emailsMatch');
         } else {
@@ -227,7 +227,7 @@ const ValidateForm = (function() {
         works with urls starting with http, https or ftp
     */
     const _checkUrl = function() {
-        const regEx = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+        const regEx = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         
         if (regEx.test(this.value)) {
             _success( this.id, 'isUrl' );
@@ -420,6 +420,7 @@ const ValidateForm = (function() {
         init: function(formName) {
             settings.formName = formName;
             _getInputs();
+            return this;
         },
         /*
         @function - changeErrorClass - change the class of the success / error
@@ -438,6 +439,7 @@ const ValidateForm = (function() {
         setMsg: function(set, msg) {
             settings.msg = true;
             settings[set] = msg;
+            return this;
         },
         /*
         @function globalMsg - use a single message box for output
@@ -465,18 +467,16 @@ const ValidateForm = (function() {
         @function highlightOff - turn off highlighting around input borders
         */
         highlightOff: function() {
-             setings.highlight = false;
+            setings.highlight = false;
         },
         /*
-        @function debugOff - switch off debugging errors to console
+        @function debugOff - switch on debugging errors to console
         @param string value - if value is settings - console.log will show a JSON
              string of all the settings
         */
         debug: function(value) {
-            settings.debug = true;
-            if ( value === 'settings' ) {
-                console.log(JSON.stringify(settings))
-            }
+            settings.debug = value;
+            console.log(JSON.stringify(settings));
         }
     };
 

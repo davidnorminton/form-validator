@@ -3,7 +3,7 @@
     <head>
         <title>Form Validator</title>
         <meta type="author" content="David Norminton">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
         <header>
@@ -39,20 +39,20 @@
 
             <input type="submit" id="form-submit">
         </form>
-<script src="form-valid.js"></script>
+<script src="/js/form-valid.js"></script>
 <script>
 
-ValidateForm.init('myForm');
-ValidateForm.setMsg( 'emailsMatch' , 'Good Match');
-ValidateForm.setMsg( 'emailsNoMatch', 'oops not the same');
-ValidateForm.setMsg( 'inValidEmail',  'What kind of email is that?');
-ValidateForm.setMsg( 'validEmail', 'I like that email');
-ValidateForm.setMsg( 'isNumber' , 'yup thats a number');
-ValidateForm.setMsg( 'isNotNumber', 'try entering a number instead');
-ValidateForm.setMsg( 'isNotDate', 'What kind of date is that');
-ValidateForm.setMsg( 'isDate', 'I remember that day well');
-ValidateForm.setMsg( 'isUrl', 'Valid url');
-ValidateForm.setMsg( 'isNotUrl', 'not sure thats a website');
+ValidateForm.init('myForm')
+            .setMsg( 'emailsMatch' , 'Good Match')
+            .setMsg( 'emailsNoMatch', 'oops not the same')
+            .setMsg( 'inValidEmail',  'What kind of email is that?')
+            .setMsg( 'validEmail', 'I like that email')
+            .setMsg( 'isNumber' , 'yup thats a number')
+            .setMsg( 'isNotNumber', 'try entering a number instead')
+            .setMsg( 'isNotDate', 'What kind of date is that')
+            .setMsg( 'isDate', 'I remember that day well')
+            .setMsg( 'isUrl', 'Valid url')
+            .setMsg( 'isNotUrl', 'not sure thats a website')
 //ValidateForm.msgOff();
 //ValidateForm.tickCross('message');
 //ValidateForm.globalMsg('alert');
